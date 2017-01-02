@@ -26,6 +26,7 @@ include_directories(${Boost_INCLUDE_DIR})
 link_directories(${Boost_LIBRARY_DIRS})
 
 list(APPEND libfec_sources
+    decode_rs_impl.cc
 )
 
 set(libfec_sources "${libfec_sources}" PARENT_SCOPE)
@@ -35,7 +36,7 @@ if(NOT libfec_sources)
 endif(NOT libfec_sources)
 
 add_library(gnuradio-libfec SHARED ${libfec_sources})
-target_link_libraries(gnuradio-libfec ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES})
+target_link_libraries(gnuradio-libfec fec ${Boost_LIBRARIES} ${GNURADIO_ALL_LIBRARIES})
 set_target_properties(gnuradio-libfec PROPERTIES DEFINE_SYMBOL "gnuradio_libfec_EXPORTS")
 
 if(APPLE)
@@ -53,27 +54,27 @@ GR_LIBRARY_FOO(gnuradio-libfec RUNTIME_COMPONENT "libfec_runtime" DEVEL_COMPONEN
 ########################################################################
 # Build and register unit test
 ########################################################################
-include(GrTest)
-
-include_directories(${CPPUNIT_INCLUDE_DIRS})
-
-list(APPEND test_libfec_sources
-    ${CMAKE_CURRENT_SOURCE_DIR}/test_libfec.cc
-    ${CMAKE_CURRENT_SOURCE_DIR}/qa_libfec.cc
-)
-
-add_executable(test-libfec ${test_libfec_sources})
-
-target_link_libraries(
-  test-libfec
-  ${GNURADIO_RUNTIME_LIBRARIES}
-  ${Boost_LIBRARIES}
-  ${CPPUNIT_LIBRARIES}
-  gnuradio-libfec
-)
-
-GR_ADD_TEST(test_libfec test-libfec)
-
+#include(GrTest)
+#
+#include_directories(${CPPUNIT_INCLUDE_DIRS})
+#
+#list(APPEND test_libfec_sources
+#    ${CMAKE_CURRENT_SOURCE_DIR}/test_libfec.cc
+#    ${CMAKE_CURRENT_SOURCE_DIR}/qa_libfec.cc
+#)
+#
+#add_executable(test-libfec ${test_libfec_sources})
+#
+#target_link_libraries(
+#  test-libfec
+#  ${GNURADIO_RUNTIME_LIBRARIES}
+#  ${Boost_LIBRARIES}
+#  ${CPPUNIT_LIBRARIES}
+#  gnuradio-libfec
+#)
+#
+#GR_ADD_TEST(test_libfec test-libfec)
+#
 ########################################################################
 # Print summary
 ########################################################################

@@ -22,5 +22,5 @@
 ########################################################################
 install(FILES
     api.h
-    DESTINATION include/libfec
+    decode_rs.h DESTINATION include/libfec
 )
